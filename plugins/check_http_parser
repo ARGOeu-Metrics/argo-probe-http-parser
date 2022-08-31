@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+import argparse
+from argo_probe_http_parser.parse import HttpParse
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='ARGO probe that parses http response for given three '
+                    'versions of text that, if found, will return OK, WARNING '
+                    'or CRITICAL status.',
+        add_help=False
+    )
+    required = parser.add_argument_group('required arguments')
+    optional = parser.add_argument_group('optional arguments')
+    required.add_argument(
+        '-H', '--hostname', dest='hostname', type=str, required=True,
+        help='Name of the host'
+    )
+    required.add_argument(
+        '-t', '--timeout', dest='timeout', type=float, default=10,
+        required=True, help='Seconds before connection times out (default 10)'
+    )
+    optional.add_argument(
+        '-h', '--help', action='help', default=argparse.SUPPRESS,
+        help='Show this help message and exit'
+    )
+    optional.add_argument(
+        '-p', '--port', dest='port', type=int, default=80,
+        help='Port number (default: 80)'
+    )
+    optional.add_argument(
+        '-u', '--uri', dest='uri', type=str, default='/',
+        help='URI to GET (default /)'
+    )
+    optional.add_argument(
+        '--ok-search', dest='ok_search', type=str, default='ok',
+        help='Text to be searched in the http response which, if found, will '
+             'return status OK (default: ok)'
+    )
+    optional.add_argument(
+        '--warning-search', dest='warning_search', type=str, default='warning',
+        help='Text to be searched in the http response which, if found, will '
+             'return status WARNING (default: warning)'
+    )
+    optional.add_argument(
+        '--critical-search', dest='critical_search', type=str,
+        default='critical',
+        help='Text to be searched in the http response which, if found, will '
+             'return status CRITICAL (default: critical)'
+    )
+    optional.add_argument(
+        '--ok-message', dest='ok_msg', type=str, default='',
+        help='Status message to return if ok string is found in the response '
+             '(default: "")'
+    )
+    optional.add_argument(
+        '--warning-message', dest='warning_msg', type=str, default='',
+        help='Status message to return if warning string is found in the '
+             'response (default: "")'
+    )
+    optional.add_argument(
+        '--critical-message', dest='critical_msg', type=str, default='',
+        help='Status message to return if critical string is found in the '
+             'response (default: "")'
+    )
+    optional.add_argument(
+        '--unknown-message', dest='unknown_msg', type=str,
+        default='None of the sample texts found in response',
+        help='Status message to return in case if none of the defined strings '
+             'is found in the response.'
+    )
+    optional.add_argument(
+        '--ssl', dest='ssl', action='store_true', help='Connect using SSL.'
+    )
+    optional.add_argument(
+        '--case-sensitive', dest='case_sensitive', action='store_true',
+        help='Parse text as case sensitive. (default: false)'
+    )
+
+    args = parser.parse_args()
+
+    http_parser = HttpParse(
+        hostname=args.hostname, port=args.port, uri=args.uri, ssl=args.ssl
+    )
+    http_parser.parse(
+        ok_search=args.ok_search,
+        warn_search=args.warning_search,
+        crit_search=args.critical_search,
+        ok_msg=args.ok_msg,
+        warn_msg=args.warning_msg,
+        crit_msg=args.critical_msg,
+        unknown_msg=args.unknown_msg,
+        timeout=args.timeout,
+        case_sensitive=args.case_sensitive
+    )
+
+
+if __name__ == '__main__':
+    main()
