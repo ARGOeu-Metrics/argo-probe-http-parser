@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Sep 1 2022 Katarina Zailac <kzailac@srce.hr> - 0.3.0-1
+- AO-651 Harmonize EGI probes
 * Mon Jul 12 2021 Emir Imamagic <eimamagi@srce.hr> - 0.2.0-1
 - ARGO-3216 Add parameter --case-sensitive
 * Mon Jun 28 2021 Katarina Zailac <kzailac@srce.hr> - 0.1.0-1%{?dist}
