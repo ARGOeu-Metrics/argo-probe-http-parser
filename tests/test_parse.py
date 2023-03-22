@@ -88,7 +88,6 @@ class HttpParseTests(unittest.TestCase):
         mock_print.assert_called_with('OK - Everything is ok.')
         mock_sys.assert_called_with(0)
 
-
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
     @mock.patch('argo_probe_http_parser.parse.print')
     @mock.patch('argo_probe_http_parser.parse.requests.get')
@@ -110,7 +109,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            "UNKNOWN - Something unknown.\n"
+            "For more info check URL: http://hostname.com:80/api/test.php"
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -154,7 +156,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('WARNING - Not everything is ok.')
+        mock_print.assert_called_with(
+            "WARNING - Not everything is ok.\n"
+            "For more info check URL: http://hostname.com:80/api/test.php"
+        )
         mock_sys.assert_called_with(1)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -176,7 +181,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('WARNING - Not everything is ok.')
+        mock_print.assert_called_with(
+            "WARNING - Not everything is ok.\n"
+            "For more info check URL: http://hostname.com:80/api/test.php"
+        )
         mock_sys.assert_called_with(1)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -200,7 +208,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            "UNKNOWN - Something unknown.\n"
+            "For more info check URL: http://hostname.com:80/api/test.php"
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -222,7 +233,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_print.assert_called_with(
+            'CRITICAL - Nothing is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -246,7 +260,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_print.assert_called_with(
+            'CRITICAL - Nothing is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -270,7 +287,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            'UNKNOWN - Something unknown.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -292,7 +312,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_print.assert_called_with(
+            'CRITICAL - Nothing is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -316,7 +339,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_print.assert_called_with(
+            'CRITICAL - Nothing is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -340,7 +366,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            'UNKNOWN - Something unknown.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -364,7 +393,8 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with(
-            'CRITICAL - CRITICAL: item1,item2,item3\nOK:item4,item5'
+            'CRITICAL - CRITICAL: item1,item2,item3\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
         )
         mock_sys.assert_called_with(2)
 
@@ -389,7 +419,8 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with(
-            'CRITICAL - CRITICAL: item1,item2,item3\nOK:item4,item5'
+            'CRITICAL - CRITICAL: item1,item2,item3\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
         )
         mock_sys.assert_called_with(2)
 
@@ -413,7 +444,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN')
+        mock_print.assert_called_with(
+            'UNKNOWN - '
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -435,7 +469,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('WARNING - Not everything is ok.')
+        mock_print.assert_called_with(
+            'WARNING - Not everything is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(1)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -459,7 +496,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('WARNING - Not everything is ok.')
+        mock_print.assert_called_with(
+            'WARNING - Not everything is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(1)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -483,7 +523,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            'UNKNOWN - Something unknown.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -507,7 +550,8 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with(
-            'WARNING - WARNING: item1,item2,item3\nOK:item4,item5'
+            'WARNING - WARNING: item1,item2,item3\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
         )
         mock_sys.assert_called_with(1)
 
@@ -532,7 +576,8 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with(
-            'WARNING - WARNING: item1,item2,item3\nOK:item4,item5'
+            'WARNING - WARNING: item1,item2,item3\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
         )
         mock_sys.assert_called_with(1)
 
@@ -556,7 +601,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN')
+        mock_print.assert_called_with(
+            'UNKNOWN - '
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -578,7 +626,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_print.assert_called_with(
+            'CRITICAL - Nothing is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -602,7 +653,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('CRITICAL - Nothing is ok.')
+        mock_print.assert_called_with(
+            'CRITICAL - Nothing is ok.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(2)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -626,7 +680,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            'UNKNOWN - Something unknown.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -650,7 +707,8 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with(
-            'CRITICAL - WARNING: item1,item2\nCRITICAL:item3, item4\nOK:item5'
+            'CRITICAL - CRITICAL:item3, item4\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
         )
         mock_sys.assert_called_with(2)
 
@@ -675,7 +733,8 @@ class HttpParseTests(unittest.TestCase):
             'http://hostname.com:80/api/test.php', timeout=20
         )
         mock_print.assert_called_with(
-            'CRITICAL - WARNING: item1,item2\nCRITICAL:item3, item4\nOK:item5'
+            'CRITICAL - CRITICAL:item3, item4\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
         )
         mock_sys.assert_called_with(2)
 
@@ -699,7 +758,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN')
+        mock_print.assert_called_with(
+            'UNKNOWN - '
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')
@@ -721,7 +783,10 @@ class HttpParseTests(unittest.TestCase):
         mock_get.assert_called_with(
             'http://hostname.com:80/api/test.php', timeout=20
         )
-        mock_print.assert_called_with('UNKNOWN - Something unknown.')
+        mock_print.assert_called_with(
+            'UNKNOWN - Something unknown.\n'
+            'For more info check URL: http://hostname.com:80/api/test.php'
+        )
         mock_sys.assert_called_with(3)
 
     @mock.patch('argo_probe_http_parser.parse.sys.exit')

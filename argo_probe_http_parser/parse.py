@@ -1,5 +1,7 @@
-import requests
 import sys
+
+import requests
+
 from argo_probe_http_parser.nagios import NagiosResponse
 
 
@@ -53,7 +55,12 @@ class HttpParse:
                 if crit_msg:
                     msg = crit_msg
                 else:
-                    msg = response.text
+                    msg = "\n".join([
+                        c for c in response.text.split("\n") if
+                        crit_search.lower() in c.lower()
+                    ])
+
+                msg = f"{msg}\nFor more info check URL: {url}"
                 self.nagios.set_critical(msg)
 
             elif warn_search in response_text:
@@ -61,15 +68,25 @@ class HttpParse:
                     msg = warn_msg
 
                 else:
-                    msg = response.text
+                    msg = "\n".join([
+                        w for w in response.text.split("\n") if
+                        warn_search.lower() in w.lower()
+                    ])
 
+                msg = f"{msg}\nFor more info check URL: {url}"
                 self.nagios.set_warning(msg)
 
             elif ok_search in response_text:
                 self.nagios.set_ok(ok_msg)
 
             else:
-                self.nagios.set_unknown(unknown_msg)
+                if unknown_msg:
+                    msg = f"{unknown_msg}\nFor more info check URL: {url}"
+
+                else:
+                    msg = f"For more info check URL: {url}"
+
+                self.nagios.set_unknown(msg)
 
         except (
                 requests.exceptions.HTTPError,
