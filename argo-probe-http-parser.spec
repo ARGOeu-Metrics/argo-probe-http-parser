@@ -2,7 +2,7 @@
 
 Summary:       ARGO probe that parses http response.
 Name:          argo-probe-http-parser
-Version:       0.3.0
+Version:       0.3.1
 Release:       1%{?dist}
 Source0:       %{name}-%{version}.tar.gz
 License:       ASL 2.0
@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 23 2023 Katarina Zailac <kzailac@srce.hr> - 0.3.1-1
+- ARGO-4252 Fix formatting of check_http_parser probe
 * Thu Sep 1 2022 Katarina Zailac <kzailac@srce.hr> - 0.3.0-1
 - AO-651 Harmonize EGI probes
 * Mon Jul 12 2021 Emir Imamagic <eimamagi@srce.hr> - 0.2.0-1
