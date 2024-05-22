@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Mon May 13 2024 Katarina Zailac <kzailac@srce.hr> - 0.3.2-1
+* Wed May 22 2024 Katarina Zailac <kzailac@srce.hr> - 0.3.2-1
 - ARGO-4546 Prepare el9 build for argo-probe-http-parser probe
 * Thu Mar 23 2023 Katarina Zailac <kzailac@srce.hr> - 0.3.1-1
 - ARGO-4252 Fix formatting of check_http_parser probe
