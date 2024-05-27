@@ -2,7 +2,7 @@
 
 Summary:       ARGO probe that parses http response.
 Name:          argo-probe-http-parser
-Version:       0.3.1
+Version:       0.3.2
 Release:       1%{?dist}
 Source0:       %{name}-%{version}.tar.gz
 License:       ASL 2.0
@@ -12,7 +12,14 @@ Prefix:        %{_prefix}
 BuildArch:     noarch
 
 BuildRequires: python3-devel
+
+%if 0%{?el7}
 Requires: python36-requests
+
+%else
+Requires:      python3-requests
+
+%endif
 
 
 %description
@@ -42,6 +49,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed May 22 2024 Katarina Zailac <kzailac@srce.hr> - 0.3.2-1
+- ARGO-4546 Prepare el9 build for argo-probe-http-parser probe
 * Thu Mar 23 2023 Katarina Zailac <kzailac@srce.hr> - 0.3.1-1
 - ARGO-4252 Fix formatting of check_http_parser probe
 * Thu Sep 1 2022 Katarina Zailac <kzailac@srce.hr> - 0.3.0-1
